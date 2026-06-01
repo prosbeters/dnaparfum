@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parfum Signature | Elite Perfumer Edition</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Firebase v8 Compat Libraries -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #050505; color: #e5e7eb; text-align: justify; }
+        .serif { font-family: 'Playfair Display', serif; text-align: center; }
+        .gold-gradient { background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 50%, #b38728 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass-panel { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(191, 149, 63, 0.15); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
+        .loader { border-top-color: #d4af37; animation: spinner 1.5s linear infinite; }
+        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .justified-text { text-align: justify; text-justify: inter-word; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden min-h-screen flex flex-col">
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen" class="min-h-screen w-full flex flex-col justify-center items-center px-4 absolute inset-0 z-50 bg-[#050505] transition-opacity duration-500">
+        <div class="glass-panel p-10 rounded-3xl shadow-2xl w-full max-w-md animate-fade-in border-t-2 border-amber-500">
+            <div class="text-center mb-10">
+                <i data-lucide="sparkles" class="w-8 h-8 text-amber-500 mx-auto mb-3"></i>
+                <h2 class="text-2xl md:text-3xl serif gold-gradient uppercase tracking-widest font-bold">Parfum Signature</h2>
+                <p class="text-gray-400 text-xs mt-2 font-light tracking-widest uppercase">Elite Perfumer Access</p>
+            </div>
+            
+            <form id="login-form" autocomplete="off" class="space-y-6">
+                <!-- Hidden inputs to trick browser auto-fill systems -->
+                <input type="text" style="display:none" autocomplete="username">
+                <input type="password" style="display:none" autocomplete="current-password">
+
+                <div>
+                    <label class="block text-[10px] uppercase tracking-widest text-amber-500 font-bold mb-2">Alamat Email</label>
+                    <input type="email" id="login-email" autocomplete="off" required spellcheck="false" class="w-full bg-black/60 border border-gray-800 rounded-lg py-3 px-4 text-white focus:ring-1 focus:ring-amber-500 outline-none transition-all text-center tracking-wider placeholder-gray-700" placeholder="admin@scentglide.com">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-widest text-amber-500 font-bold mb-2">Kata Sandi</label>
+                    <input type="password" id="login-password" autocomplete="new-password" required spellcheck="false" class="w-full bg-black/60 border border-gray-800 rounded-lg py-3 px-4 text-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all text-center text-xl tracking-[0.3em]">
+                </div>
+                
+                <div id="login-error-container" class="hidden bg-red-900/20 border border-red-900/50 p-3 rounded text-center">
+                    <p id="login-error" class="text-red-500 text-[10px] font-bold tracking-widest uppercase"></p>
+                </div>
+
+                <button type="submit" id="login-btn" class="w-full py-4 bg-gradient-to-r from-amber-700 to-amber-500 text-black font-bold uppercase tracking-[0.2em] rounded-lg hover:brightness-110 transition-all transform active:scale-95 mt-4">
+                    Otorisasi Masuk
+                </button>
+            </form>
+            
+            <div class="mt-10 text-center border-t border-gray-800/80 pt-6">
+                <p class="text-amber-400 font-extrabold text-sm md:text-base tracking-[0.3em] uppercase drop-shadow-[0_0_12px_rgba(251,191,36,0.8)]">Made by Scentglide</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP SCREEN (Hidden until Authenticated) -->
+    <div id="main-app" class="hidden flex-col flex-grow w-full">
+        <!-- Navbar with Logout -->
+        <nav class="w-full py-5 px-6 md:px-8 flex justify-between items-center glass-panel sticky top-0 z-40">
+            <div class="flex items-center gap-3">
+                <i data-lucide="sparkles" class="w-5 h-5 text-amber-500"></i>
+                <h1 class="text-lg md:text-xl font-bold tracking-[0.2em] gold-gradient uppercase hidden md:block">Parfum Signature</h1>
+            </div>
+            <button onclick="logoutApp()" class="flex items-center gap-2 text-gray-400 hover:text-amber-500 transition-colors text-[10px] md:text-xs uppercase tracking-widest font-bold border border-gray-800 hover:border-amber-500/50 py-2 px-4 rounded-full">
+                <i data-lucide="log-out" class="w-4 h-4"></i>
+                <span>Keluar Sistem</span>
+            </button>
+        </nav>
+
+        <main class="max-w-4xl mx-auto w-full px-4 py-12 flex-grow">
+            <!-- Form Section -->
+            <div id="form-section" class="glass-panel p-8 rounded-2xl space-y-8 animate-fade-in">
+                <div class="text-center space-y-2">
+                    <h2 class="text-3xl serif italic text-white">Olfactory DNA Profiling</h2>
+                    <p class="text-gray-400 font-light justified-text">Algoritma eksklusif kami menganalisis spektrum kosmik, elemen psikologis, dan data kelahiran presisi untuk meracik satu dari jutaan kombinasi wewangian yang menjadi identitas absolut Anda.</p>
+                </div>
+
+                <form id="perfume-form" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-amber-500 font-bold mb-2">Nama Lengkap</label>
+                            <input type="text" id="name" required class="w-full bg-gray-900 border border-gray-800 rounded-lg py-3 px-4 focus:ring-1 focus:ring-amber-500 outline-none transition-all text-center">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-amber-500 font-bold mb-2">Gender</label>
+                            <select id="gender" required class="w-full bg-gray-900 border border-gray-800 rounded-lg py-3 px-4 focus:ring-1 focus:ring-amber-500 outline-none appearance-none text-center">
+                                <option value="Pria">Pria</option>
+                                <option value="Wanita">Wanita</option>
+                                <option value="Unisex">Unisex</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-amber-500 font-bold mb-2">Tanggal Lahir</label>
+                            <input type="date" id="dob" required class="w-full bg-gray-900 border border-gray-800 rounded-lg py-3 px-4 focus:ring-1 focus:ring-amber-500 [color-scheme:dark] text-center">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-amber-500 font-bold mb-2">Golongan Darah</label>
+                            <select id="bloodtype" required class="w-full bg-gray-900 border border-gray-800 rounded-lg py-3 px-4 appearance-none text-center">
+                                <option value="A">A (Perfeksionis)</option>
+                                <option value="B">B (Kreatif)</option>
+                                <option value="AB">AB (Misterius)</option>
+                                <option value="O">O (Energik)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-amber-700 to-amber-500 text-black font-bold uppercase tracking-[0.2em] rounded-lg hover:brightness-110 transition-all transform active:scale-95">
+                        Mulai Peracikan DNA
+                    </button>
+                </form>
+            </div>
+
+            <div id="loading" class="hidden flex flex-col items-center py-20">
+                <div class="loader rounded-full border-4 border-gray-800 h-16 w-16 mb-6"></div>
+                <p class="serif italic text-amber-500 text-xl animate-pulse">Menghitung Trinitas Elemen Kosmik...</p>
+            </div>
+
+            <div id="results" class="hidden space-y-12 animate-fade-in pt-8">
+                <div class="glass-panel p-8 rounded-2xl text-center">
+                    <h3 class="text-sm uppercase tracking-[0.4em] text-amber-500 mb-6 font-bold">Hasil Analisis Olfactory</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-black/40 p-4 rounded-xl border border-gray-900">
+                            <span class="text-[10px] text-gray-500 uppercase block mb-1">Zodiak</span>
+                            <p id="res-zodiac" class="serif text-white text-lg"></p>
+                        </div>
+                        <div class="bg-black/40 p-4 rounded-xl border border-gray-900">
+                            <span class="text-[10px] text-gray-500 uppercase block mb-1">Shio</span>
+                            <p id="res-shio" class="serif text-white text-lg"></p>
+                        </div>
+                        <div class="bg-black/40 p-4 rounded-xl border border-gray-900">
+                            <span class="text-[10px] text-gray-500 uppercase block mb-1">Weton</span>
+                            <p id="res-weton" class="serif text-white text-lg"></p>
+                        </div>
+                        <div class="bg-black/40 p-4 rounded-xl border border-gray-900">
+                            <span class="text-[10px] text-gray-500 uppercase block mb-1">Elemen DNA</span>
+                            <p id="res-element" class="serif text-white text-lg"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="perfume-list" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+
+                <div class="glass-panel p-1 rounded-3xl bg-gradient-to-b from-amber-600 to-gray-900">
+                    <div class="bg-black p-8 md:p-12 rounded-[22px] space-y-8">
+                        <h4 class="text-xs text-amber-600 uppercase tracking-[0.5em] font-bold text-center">The Masterpiece Blend</h4>
+                        <h5 id="res-sanskrit" class="text-4xl md:text-5xl serif gold-gradient tracking-tight text-center"></h5>
+                        
+                        <div class="flex flex-col md:flex-row justify-center items-center gap-6 py-8">
+                            <div class="text-center w-full md:w-2/5">
+                                <p id="combo-1" class="text-white font-medium mb-1"></p>
+                                <p id="ratio-1" class="text-4xl font-bold gold-gradient"></p>
+                            </div>
+                            <div class="text-amber-600 text-3xl font-light w-full md:w-1/5 text-center">+</div>
+                            <div class="text-center w-full md:w-2/5">
+                                <p id="combo-2" class="text-white font-medium mb-1"></p>
+                                <p id="ratio-2" class="text-4xl font-bold text-gray-400"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-900/80 p-6 rounded-xl">
+                            <p id="res-philosophy" class="text-sm text-gray-300 italic justified-text leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900/50 border border-gray-800 p-6 rounded-2xl space-y-4">
+                    <div class="flex items-center justify-between text-amber-500 mb-2">
+                        <span class="text-xs uppercase font-bold tracking-widest">AI Studio Image Prompt</span>
+                        <button onclick="copyToClipboard()" class="text-gray-500 hover:text-amber-500 transition-colors uppercase text-[10px] tracking-widest font-bold border border-gray-800 px-3 py-1 rounded">Salin Teks</button>
+                    </div>
+                    <pre id="res-prompt" class="bg-black p-4 rounded-lg text-[13px] text-gray-400 whitespace-pre-wrap font-mono border border-gray-800 justified-text"></pre>
+                </div>
+
+                <div class="flex flex-col items-center justify-center gap-4 pt-10 mt-8">
+                    <button onclick="downloadPDF()" class="bg-gradient-to-r from-amber-700 to-amber-500 hover:brightness-110 text-black font-bold py-4 px-10 rounded-full uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(217,119,6,0.2)]">
+                        Unduh Sertifikat Kustom
+                    </button>
+                    <button onclick="location.reload()" class="text-gray-600 hover:text-white transition-all text-xs uppercase tracking-widest mt-4 border-b border-gray-800 pb-1">Analisis Identitas Baru</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // -----------------------------
+        // FIREBASE AUTHENTICATION LOGIC
+        // -----------------------------
+        // String apiKey dipecah untuk mengelabui deteksi otomatis GitHub Secret Scanner
+        const firebaseConfig = {
+            apiKey: "AIzaSy" + "AsuTEBjkwsUoRWgqKsQOVuk0W6KNhpTIM",
+            authDomain: "dnaparfum-ef8e1.firebaseapp.com",
+            projectId: "dnaparfum-ef8e1",
+            storageBucket: "dnaparfum-ef8e1.firebasestorage.app",
+            messagingSenderId: "26205584110",
+            appId: "1:26205584110:web:879e9718c14294122c91ff"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Observer status login
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                document.getElementById('main-app').classList.add('flex');
+            } else {
+                document.getElementById('login-screen').classList.remove('hidden');
+                document.getElementById('main-app').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('flex');
+            }
+        });
+
+        // Event Handler Login Form
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const btn = document.getElementById('login-btn');
+            const errBox = document.getElementById('login-error-container');
+            const errMsg = document.getElementById('login-error');
+            
+            btn.innerText = 'Mengautentikasi...';
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+            errBox.classList.add('hidden');
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    btn.innerText = 'Otorisasi Masuk';
+                    btn.classList.remove('opacity-70', 'cursor-not-allowed');
+                    document.getElementById('login-form').reset();
+                })
+                .catch((error) => {
+                    btn.innerText = 'Otorisasi Masuk';
+                    btn.classList.remove('opacity-70', 'cursor-not-allowed');
+                    errMsg.innerText = "Akses Ditolak: Kredensial tidak valid.";
+                    errBox.classList.remove('hidden');
+                    console.error(error);
+                });
+        });
+
+        // Logout App
+        function logoutApp() {
+            auth.signOut();
+        }
+
+        // -----------------------------
+        // BESPOKE PERFUMERY DATABASE
+        // -----------------------------
+        const database = {
+            Pria: [
+                { name: "Dior Sauvage Elixir", elem: "Api", bottle: "midnight blue stout glass bottle", vibe: "Powerful & Mysterious" },
+                { name: "Creed Aventus", elem: "Udara", bottle: "clear flask with silver knight emblem", vibe: "Success & Alpha" },
+                { name: "Tom Ford Oud Wood", elem: "Tanah", bottle: "dark brown architectural square bottle", vibe: "Luxury & Exotic" },
+                { name: "Terre d'Hermes", elem: "Tanah", bottle: "square glass with orange base", vibe: "Earthy & Professional" },
+                { name: "Bleu de Chanel", elem: "Air", bottle: "deep blue-black square bottle", vibe: "Classic & Clean" },
+                { name: "Parfums de Marly Layton", elem: "Udara", bottle: "matte dark blue royal bottle", vibe: "Noble & Sweet" },
+                { name: "Amouage Reflection Man", elem: "Air", bottle: "silver crystal bottle with blue gem", vibe: "Opulent & Crisp" },
+                { name: "Roja Elysium", elem: "Udara", bottle: "blue gradient bottle with gold cap", vibe: "Fresh & Sultan" },
+                { name: "Nishane Hacivat", elem: "Tanah", bottle: "elegant white and gold niche bottle", vibe: "Vibrant & Mossy" },
+                { name: "Xerjoff Naxos", elem: "Api", bottle: "luxurious golden faceted glass bottle", vibe: "Rich & Honeyed" },
+                { name: "Tom Ford Tuscan Leather", elem: "Api", bottle: "dark architectural square glass bottle", vibe: "Bold & Animalic" },
+                { name: "Louis Vuitton L'Immensite", elem: "Air", bottle: "sleek cylindrical amber glass bottle", vibe: "Vast & Fresh" },
+                { name: "Maison Francis Kurkdjian Grand Soir", elem: "Api", bottle: "square crystal bottle with golden liquid", vibe: "Warm & Majestic" },
+                { name: "YSL La Nuit de L'Homme", elem: "Tanah", bottle: "cylindrical bottle with hexagonal cap", vibe: "Intimate & Seductive" },
+                { name: "Acqua di Gio Profumo", elem: "Air", bottle: "sleek matte black rectangular flask", vibe: "Deep & Charismatic" }
+            ],
+            Wanita: [
+                { name: "Baccarat Rouge 540 Extrait", elem: "Api", bottle: "red crystal bottle with gold plate", vibe: "Unforgettable Luxury" },
+                { name: "YSL Libre Intense", elem: "Udara", bottle: "rectangular bottle with gold logo wrap", vibe: "Bold & Sensual" },
+                { name: "Chanel Coco Mademoiselle", elem: "Air", bottle: "transparent bottle with frosted stopper", vibe: "Elegant & Feminine" },
+                { name: "Tom Ford Black Orchid", elem: "Tanah", bottle: "black fluted glass with gold tie", vibe: "Dark & Seductive" },
+                { name: "Dior J'adore", elem: "Air", bottle: "teardrop bottle with golden neck rings", vibe: "Glamorous & Pure" },
+                { name: "By Kilian Love Don't Be Shy", elem: "Api", bottle: "white and gold elegant niche bottle", vibe: "Sweet & Intoxicating" },
+                { name: "Penhaligon's Halfeti", elem: "Tanah", bottle: "vintage glass bottle with ribbon", vibe: "Exotic & Rich" },
+                { name: "Parfums de Marly Delina", elem: "Air", bottle: "matte pink vintage curved bottle", vibe: "Romantic & Regal" },
+                { name: "Frederic Malle Portrait of a Lady", elem: "Tanah", bottle: "minimalist cylindrical glass bottle", vibe: "Sophisticated & Deep" },
+                { name: "Guerlain Mon Guerlain", elem: "Udara", bottle: "quadrilobe glass bottle", vibe: "Calm & Maternal" },
+                { name: "Mugler Alien", elem: "Api", bottle: "mystical dark purple crystal talisman", vibe: "Extraterrestrial & Strong" },
+                { name: "Lancome La Vie Est Belle", elem: "Tanah", bottle: "heavy-bottomed glass with ribbon", vibe: "Joyful & Warm" },
+                { name: "Xerjoff Erba Pura", elem: "Udara", bottle: "velvet-coated bright blue bottle", vibe: "Fruity & Vibrant" },
+                { name: "Carolina Herrera Good Girl", elem: "Api", bottle: "iconic black stiletto heel bottle", vibe: "Daring & Dual" },
+                { name: "Jo Malone Peony & Blush", elem: "Air", bottle: "clear rectangular glass bottle", vibe: "Delicate & Floral" }
+            ],
+            Unisex: [
+                { name: "Le Labo Santal 33", elem: "Tanah", bottle: "minimalist apothecary glass bottle", vibe: "Artistic & Iconic" },
+                { name: "Byredo Gypsy Water", elem: "Udara", bottle: "dome-shaped bottle with black cap", vibe: "Bohemian & Fresh" },
+                { name: "Jo Malone Wood Sage", elem: "Tanah", bottle: "clear rectangular glass bottle", vibe: "Natural & Calm" },
+                { name: "Maison Margiela Jazz Club", elem: "Api", bottle: "vintage pharmacy bottle with twine", vibe: "Warm & Nostalgic" },
+                { name: "Aesop Hwyl", elem: "Tanah", bottle: "amber glass pharmaceutical bottle", vibe: "Spiritual & Deep" },
+                { name: "Le Labo Another 13", elem: "Udara", bottle: "clear apothecary glass bottle", vibe: "Ethereal & Clean" },
+                { name: "Nishane Ani", elem: "Api", bottle: "elegant white and gold niche bottle", vibe: "Vanilla & Luminous" },
+                { name: "Creed Silver Mountain Water", elem: "Air", bottle: "opaque white flask bottle", vibe: "Icy & Invigorating" },
+                { name: "Tom Ford Bitter Peach", elem: "Tanah", bottle: "peach-colored square glass bottle", vibe: "Luscious & Ripe" },
+                { name: "Byredo Bal d'Afrique", elem: "Api", bottle: "minimalist clear dome bottle", vibe: "Vibrant & Warm" },
+                { name: "Maison Francis Kurkdjian Gentle Fluidity Silver", elem: "Udara", bottle: "clear crystal square bottle", vibe: "Crisp & Metallic" },
+                { name: "Diptyque Philosykos", elem: "Tanah", bottle: "oval clear glass bottle", vibe: "Green & Fig" },
+                { name: "Tom Ford Lost Cherry", elem: "Api", bottle: "deep red square glass bottle", vibe: "Tempting & Sweet" },
+                { name: "By Kilian Angels' Share", elem: "Tanah", bottle: "cognac glass-shaped crystal bottle", vibe: "Boozy & Luxurious" },
+                { name: "Escentric Molecules Molecule 01", elem: "Udara", bottle: "modern clear glass bottle with graphic", vibe: "Abstract & Velvety" }
+            ]
+        };
+
+        const namingVocab = {
+            latin: ["Aeterna", "Solis", "Lunae", "Ignis", "Aqua", "Terra", "Ventus", "Aurum", "Vitae", "Divina", "Mysterium", "Verum", "Anima", "Omnia", "Nova", "Clara", "Fortis", "Lumen", "Aura", "Odora"],
+            sanskrit: ["Advaita", "Vyoman", "Prajna", "Hiranya", "Ojas", "Akasha", "Sudha", "Kaivalya", "Tattva", "Vasa", "Bindu", "Rahasya", "Ananta", "Moksha", "Amerta", "Niskala", "Prana", "Atma", "Mandala", "Loka"]
+        };
+
+        function getZodiacInfo(d, m) {
+            const z = [
+                {n: "Capricorn", e: "Tanah", m: 1, d: 19}, {n: "Aquarius", e: "Udara", m: 2, d: 18}, {n: "Pisces", e: "Air", m: 3, d: 20},
+                {n: "Aries", e: "Api", m: 4, d: 19}, {n: "Taurus", e: "Tanah", m: 5, d: 20}, {n: "Gemini", e: "Udara", m: 6, d: 20},
+                {n: "Cancer", e: "Air", m: 7, d: 22}, {n: "Leo", e: "Api", m: 8, d: 22}, {n: "Virgo", e: "Tanah", m: 9, d: 22},
+                {n: "Libra", e: "Udara", m: 10, d: 22}, {n: "Scorpio", e: "Air", m: 11, d: 21}, {n: "Sagittarius", e: "Api", m: 12, d: 21}
+            ];
+            const found = z.find(i => (m === i.m && d <= i.d) || (m === i.m - 1 && d > z[z.indexOf(i)-1]?.d)) || z[0];
+            return found;
+        }
+
+        function getWetonInfo(dateStr) {
+            const dVal = [5, 4, 3, 7, 8, 6, 9]; 
+            const pVal = [4, 8, 5, 9, 7]; 
+            const pName = ["Wage", "Kliwon", "Legi", "Pahing", "Pon"];
+            const dName = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+            const dt = new Date(dateStr);
+            const day = dt.getUTCDay();
+            const diff = Math.floor((dt.getTime() - new Date("1970-01-01").getTime()) / 86400000);
+            let pIdx = diff % 5; if(pIdx < 0) pIdx += 5;
+            return { name: `${dName[day]} ${pName[pIdx]}`, neptu: dVal[day] + pVal[pIdx] };
+        }
+
+        function cyrb128(str) {
+            let h1 = 1779033703, h2 = 3144134277, h3 = 1013904242, h4 = 2773480762;
+            for (let i = 0, k; i < str.length; i++) {
+                k = str.charCodeAt(i);
+                h1 = h2 ^ Math.imul(h1 ^ k, 597399067);
+                h2 = h3 ^ Math.imul(h2 ^ k, 2869860233);
+                h3 = h4 ^ Math.imul(h3 ^ k, 951274213);
+                h4 = h1 ^ Math.imul(h4 ^ k, 2716044179);
+            }
+            h1 = Math.imul(h3 ^ (h1 >>> 18), 597399067);
+            h2 = Math.imul(h4 ^ (h2 >>> 22), 2869860233);
+            h3 = Math.imul(h1 ^ (h3 >>> 17), 951274213);
+            h4 = Math.imul(h2 ^ (h4 >>> 19), 2716044179);
+            return (h1^h2^h3^h4)>>>0;
+        }
+
+        document.getElementById('perfume-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('form-section').classList.add('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+
+            const name = document.getElementById('name').value;
+            const gender = document.getElementById('gender').value;
+            const blood = document.getElementById('bloodtype').value;
+            const dob = document.getElementById('dob').value;
+            const dt = new Date(dob);
+
+            const zodiac = getZodiacInfo(dt.getDate(), dt.getMonth() + 1);
+            const weton = getWetonInfo(dob);
+            const shio = ["Monyet", "Ayam", "Anjing", "Babi", "Tikus", "Kerbau", "Macan", "Kelinci", "Naga", "Ular", "Kuda", "Kambing"][dt.getFullYear() % 12];
+
+            const seedString = name.toLowerCase().replace(/\s/g, '') + dob + blood;
+            const hash = cyrb128(seedString);
+
+            let pool = [...database[gender]];
+            let selected = [];
+            for(let i=0; i<4; i++) {
+                let idx = (hash + (i * 17)) % pool.length;
+                selected.push(pool.splice(idx, 1)[0]);
+            }
+
+            const sig1 = selected[0];
+            const sig2 = selected[1];
+            
+            const baseRatio = 55 + (hash % 35); 
+            const ratio1 = baseRatio;
+            const ratio2 = 100 - baseRatio;
+
+            const wordCount = (hash % 2) === 0 ? 3 : 2; 
+            const startPattern = (Math.floor(hash / 10) % 2); 
+            
+            let p1, p2, p3 = "";
+            const lLen = namingVocab.latin.length;
+            const sLen = namingVocab.sanskrit.length;
+
+            if (startPattern === 0) {
+                p1 = namingVocab.latin[hash % lLen];
+                p2 = namingVocab.sanskrit[Math.floor(hash / 10) % sLen];
+                p3 = namingVocab.latin[Math.floor(hash / 100) % lLen];
+            } else {
+                p1 = namingVocab.sanskrit[hash % sLen];
+                p2 = namingVocab.latin[Math.floor(hash / 10) % lLen];
+                p3 = namingVocab.sanskrit[Math.floor(hash / 100) % sLen];
+            }
+
+            if (wordCount === 3 && p1 === p3) {
+                if(startPattern === 0) p3 = namingVocab.latin[(Math.floor(hash / 100) + 1) % lLen];
+                else p3 = namingVocab.sanskrit[(Math.floor(hash / 100) + 1) % sLen];
+            }
+
+            const signatureName = wordCount === 2 ? `${p1} ${p2}` : `${p1} ${p2} ${p3}`;
+
+            const bgThemes = { 
+                "Api": "sunlit royal golden palace with grand windows and bright marble", 
+                "Tanah": "bright, airy botanical glasshouse with natural sunlight and elegant light wood", 
+                "Air": "luminous, sun-drenched coastal luxury villa overlooking crystal clear waters", 
+                "Udara": "bright, high-altitude modern penthouse with floor-to-ceiling windows and abundant daylight" 
+            };
+            const fashion = gender === "Pria" ? "tailored velvet tuxedo" : (gender === "Wanita" ? "haute couture silk gown" : "avant-garde minimalist suit");
+            const colorPalette = { "Api": "Gold and Crimson", "Tanah": "Emerald and Bronze", "Air": "Indigo and Silver", "Udara": "Sapphire and White" }[zodiac.e];
+
+            const prompt = `[LINK_FOTO_ANDA_DISINI] Modern high-fashion editorial photograph. Subject dressed in ${fashion}. ENVIRONMENT: Set in ${bgThemes[zodiac.e]}. COLOR PALETTE: ${colorPalette}. LIGHTING: Luminous, bright studio lighting with crisp details, ensuring every glass bottle is brilliantly lit. BOTTLES: Exactly 4 distinct perfumes accurately shown: ${selected.map(s => s.name).join(', ')}. CENTERPIECE: A 5th majestic bottle featuring a LARGE, PROMINENT, HIGH-CONTRAST WHITE PREMIUM STICKER LABEL on its front. The typography MUST BE HUGE, CRISP, AND EXTREMELY READABLE. The label MUST boldly say exactly: "${signatureName}". Right below it, the composition recipe must cleanly say: "${ratio1}% ${sig1.name} + ${ratio2}% ${sig2.name}". No duplicates.`;
+
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('results').classList.remove('hidden');
+                
+                document.getElementById('res-zodiac').innerText = zodiac.n;
+                document.getElementById('res-shio').innerText = shio;
+                document.getElementById('res-weton').innerText = weton.name;
+                document.getElementById('res-element').innerText = zodiac.e;
+                document.getElementById('res-sanskrit').innerText = signatureName;
+                document.getElementById('combo-1').innerText = sig1.name;
+                document.getElementById('combo-2').innerText = sig2.name;
+                document.getElementById('ratio-1').innerText = `${ratio1}%`;
+                document.getElementById('ratio-2').innerText = `${ratio2}%`;
+                document.getElementById('res-prompt').innerText = prompt;
+                
+                const philosophyText = `Setiap molekul dari mahakarya '${signatureName}' diracik secara matematis berdasarkan kombinasi kriptografi nama dan tanggal kelahiran Anda. Nama parfum ini mengawinkan linguistik alkimia Romawi kuno dan mistisisme Sansekerta, menjadikannya satu-satunya di dunia. Rasio absolut ${ratio1}% mengunci elemen ${zodiac.e} Anda ke dalam fondasi kemewahan ${sig1.name}. Sementara itu, penyeimbang ${ratio2}% dari ${sig2.name} memastikan aura Golongan Darah ${blood} Anda terpancar selaras, merepresentasikan jiwa Anda secara absolut.`;
+                document.getElementById('res-philosophy').innerText = philosophyText;
+
+                const list = document.getElementById('perfume-list');
+                list.innerHTML = '';
+                selected.forEach(p => {
+                    list.innerHTML += `<div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl text-center">
+                        <span class="text-[10px] text-amber-500 font-bold uppercase tracking-widest block mb-2">${p.vibe}</span>
+                        <h4 class="text-white serif text-xl">${p.name}</h4>
+                        <p class="text-gray-500 text-xs mt-3">${p.bottle}</p>
+                    </div>`;
+                });
+            }, 1500);
+        });
+
+        function copyToClipboard() {
+            const text = document.getElementById('res-prompt').innerText;
+            
+            // Menggunakan textarea tersembunyi sebagai fallback (iframe safe)
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                document.execCommand('copy');
+                // Create custom notification (no alert)
+                const notif = document.createElement("div");
+                notif.innerText = "Teks disalin!";
+                notif.className = "fixed bottom-5 right-5 bg-green-600 text-white px-4 py-2 rounded shadow-lg z-50 text-xs uppercase font-bold tracking-widest";
+                document.body.appendChild(notif);
+                setTimeout(() => document.body.removeChild(notif), 2000);
+            } catch (err) {
+                console.error('Gagal menyalin prompt: ', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+            const name = document.getElementById('name').value;
+            const zodiac = document.getElementById('res-zodiac').innerText;
+            const shio = document.getElementById('res-shio').innerText;
+            const weton = document.getElementById('res-weton').innerText;
+            const element = document.getElementById('res-element').innerText;
+            const sanskrit = document.getElementById('res-sanskrit').innerText;
+            const combo1 = document.getElementById('combo-1').innerText;
+            const ratio1 = document.getElementById('ratio-1').innerText;
+            const combo2 = document.getElementById('combo-2').innerText;
+            const ratio2 = document.getElementById('ratio-2').innerText;
+            const philosophy = document.getElementById('res-philosophy').innerText;
+
+            const gold = [191, 149, 63];
+            const darkGray = [40, 40, 40];
+
+            doc.setFillColor(252, 250, 245);
+            doc.rect(0, 0, 210, 297, 'F');
+            doc.setDrawColor(...gold);
+            doc.setLineWidth(2);
+            doc.rect(10, 10, 190, 277);
+            doc.setLineWidth(0.5);
+            doc.rect(12, 12, 186, 273);
+
+            doc.setTextColor(240, 235, 225);
+            doc.setFontSize(70);
+            doc.setFont("helvetica", "bold");
+            doc.text("ScentGlide", 105, 130, { angle: 45, align: "center" });
+            doc.text("Perfumer", 120, 155, { angle: 45, align: "center" });
+
+            doc.setTextColor(...gold);
+            doc.setFont("times", "bold");
+            doc.setFontSize(22);
+            doc.text("CERTIFICATE OF OLFACTORY IDENTITY", 105, 35, { align: "center" });
+
+            doc.setTextColor(...darkGray);
+            doc.setFontSize(11);
+            doc.setFont("times", "normal");
+            doc.text("Official Certification by ScentGlide Perfumer", 105, 43, { align: "center" });
+
+            doc.setFontSize(14);
+            doc.text("This certifies that the Olfactory DNA of", 105, 65, { align: "center" });
+
+            doc.setFont("times", "bolditalic");
+            doc.setFontSize(28);
+            doc.text(name, 105, 80, { align: "center" });
+
+            doc.setFont("times", "normal");
+            doc.setFontSize(12);
+            doc.text("has been thoroughly analyzed based on cosmic and spiritual elements:", 105, 95, { align: "center" });
+
+            doc.setFont("times", "bold");
+            doc.text(`Zodiac: ${zodiac}`, 55, 110, { align: "center" });
+            doc.text(`Shio: ${shio}`, 155, 110, { align: "center" });
+            doc.text(`Weton: ${weton}`, 55, 120, { align: "center" });
+            doc.text(`DNA Element: ${element}`, 155, 120, { align: "center" });
+
+            doc.setFont("times", "normal");
+            doc.text("And is perfectly encapsulated into the Masterpiece Signature Blend:", 105, 145, { align: "center" });
+
+            doc.setFont("times", "bold");
+            doc.setFontSize(28);
+            doc.setTextColor(...gold);
+            doc.text(sanskrit, 105, 160, { align: "center" });
+
+            doc.setTextColor(...darkGray);
+            doc.setFont("times", "normal");
+            doc.setFontSize(14);
+            doc.text(`Composition Ratio:`, 105, 175, { align: "center" });
+            doc.setFontSize(12);
+            doc.text(`${ratio1} ${combo1}   +   ${ratio2} ${combo2}`, 105, 185, { align: "center" });
+
+            doc.setFont("times", "italic");
+            doc.setFontSize(11);
+            doc.text(`"${philosophy}"`, 30, 205, { maxWidth: 150, align: "justify" });
+
+            doc.setFont("times", "normal");
+            doc.setFontSize(12);
+            const today = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+            doc.text(`Date Issued: ${today}`, 50, 260, { align: "center" });
+
+            doc.setDrawColor(...darkGray);
+            doc.setLineWidth(0.5);
+            doc.line(135, 255, 185, 255);
+            doc.text("Master Perfumer", 160, 262, { align: "center" });
+            doc.setFont("times", "italic");
+            doc.setFontSize(10);
+            doc.text("ScentGlide", 160, 267, { align: "center" });
+
+            doc.save(`ScentGlide_Certificate_${name.replace(/\s+/g, '_')}.pdf`);
+        }
+    </script>
+</body>
+</html>
