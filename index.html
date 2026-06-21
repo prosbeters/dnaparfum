@@ -52,45 +52,47 @@
     <div id="toast-container" class="fixed top-4 right-4 z-[100] flex flex-col gap-2 pointer-events-none"></div>
 
     <!-- LOGIN SCREEN -->
-    <div id="login-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#050505] px-4">
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-20"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]"></div>
+    <div id="login-screen" class="fixed inset-0 z-50 overflow-y-auto bg-[#050505]">
+        <div class="fixed inset-0 bg-[url('https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-20 pointer-events-none"></div>
+        <div class="fixed inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505] pointer-events-none"></div>
         
-        <div class="relative z-10 w-full max-w-md glass-panel p-8 rounded-2xl shadow-2xl">
-            <div class="text-center mb-8">
-                <i data-lucide="droplet" class="w-12 h-12 mx-auto text-[#BF953F] mb-3"></i>
-                <h1 class="text-3xl font-serif text-white tracking-wider uppercase">Parfum Signature</h1>
-                <p class="text-sm text-gray-400 mt-2 tracking-widest">DNA OLFACTORY SYSTEM</p>
-            </div>
-            
-            <form id="login-form" class="space-y-6">
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Email Akses</label>
-                    <input type="email" id="login-email" autocomplete="off" required class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#BF953F] transition-colors" placeholder="Masukkan Email">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Kata Sandi</label>
-                    <input type="password" id="login-password" autocomplete="new-password" required class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#BF953F] transition-colors" placeholder="••••••••">
+        <div class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-12">
+            <div class="w-full max-w-md glass-panel p-8 rounded-2xl shadow-2xl">
+                <div class="text-center mb-8">
+                    <i data-lucide="droplet" class="w-12 h-12 mx-auto text-[#BF953F] mb-3"></i>
+                    <h1 class="text-3xl font-serif text-white tracking-wider uppercase">Parfum Signature</h1>
+                    <p class="text-sm text-gray-400 mt-2 tracking-widest">DNA OLFACTORY SYSTEM</p>
                 </div>
                 
-                <div id="login-error-container" class="hidden bg-red-900/30 border border-red-800 rounded-lg p-3 text-center">
-                    <p id="login-error" class="text-xs text-red-400 font-medium"></p>
-                </div>
-
-                <div class="flex flex-col gap-3">
-                    <button type="submit" id="login-btn" class="w-full gold-bg font-bold uppercase tracking-wider text-sm py-4 rounded-lg transition-all duration-300 shadow-[0_0_15px_rgba(191,149,63,0.3)] hover:shadow-[0_0_25px_rgba(191,149,63,0.5)]">
-                        Otorisasi Masuk
-                    </button>
+                <form id="login-form" class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Email Akses</label>
+                        <input type="email" id="login-email" autocomplete="off" required class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#BF953F] transition-colors" placeholder="Masukkan Email">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Kata Sandi</label>
+                        <input type="password" id="login-password" autocomplete="new-password" required class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#BF953F] transition-colors" placeholder="••••••••">
+                    </div>
                     
-                    <a href="https://youtu.be/qRbgsQTQgc8?si=3XYLMbWHwHIRHz0B" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-center gap-2 bg-transparent border border-[#BF953F] text-[#BF953F] font-bold uppercase tracking-wider text-sm py-3.5 rounded-lg transition-all duration-300 hover:bg-[#BF953F]/10">
-                        <i data-lucide="youtube" class="w-5 h-5"></i> Video Tutorial
-                    </a>
-                </div>
-            </form>
+                    <div id="login-error-container" class="hidden bg-red-900/30 border border-red-800 rounded-lg p-3 text-center">
+                        <p id="login-error" class="text-xs text-red-400 font-medium"></p>
+                    </div>
 
-            <div class="mt-8 text-center border-t border-gray-800 pt-6">
-                <p class="text-xs text-gray-500 tracking-widest uppercase">MADE BY</p>
-                <p class="text-lg font-bold gold-gradient tracking-widest mt-1 uppercase">ScentGlide</p>
+                    <div class="flex flex-col gap-3">
+                        <button type="submit" id="login-btn" class="w-full gold-bg font-bold uppercase tracking-wider text-sm py-4 rounded-lg transition-all duration-300 shadow-[0_0_15px_rgba(191,149,63,0.3)] hover:shadow-[0_0_25px_rgba(191,149,63,0.5)]">
+                            Otorisasi Masuk
+                        </button>
+                        
+                        <a href="https://youtu.be/qRbgsQTQgc8?si=3XYLMbWHwHIRHz0B" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-center gap-2 bg-transparent border border-[#BF953F] text-[#BF953F] font-bold uppercase tracking-wider text-sm py-3.5 rounded-lg transition-all duration-300 hover:bg-[#BF953F]/10">
+                            <i data-lucide="youtube" class="w-5 h-5"></i> Video Tutorial
+                        </a>
+                    </div>
+                </form>
+
+                <div class="mt-8 text-center border-t border-gray-800 pt-6">
+                    <p class="text-xs text-gray-500 tracking-widest uppercase">MADE BY</p>
+                    <p class="text-lg font-bold gold-gradient tracking-widest mt-1 uppercase">ScentGlide</p>
+                </div>
             </div>
         </div>
     </div>
@@ -155,7 +157,7 @@
                         </div>
 
                         <button type="submit" class="w-full mt-4 gold-bg font-bold uppercase tracking-wider text-sm py-4 rounded-lg transition-all duration-300 shadow-[0_0_15px_rgba(191,149,63,0.3)] hover:shadow-[0_0_25px_rgba(191,149,63,0.5)] flex items-center justify-center gap-2">
-                            <i data-lucide="flask-conical" class="w-5 h-5"></i> Kalkulasi Racikan
+                            <i data-lucide="flask-conical" class="w-5 h-5"></i> Kalkulasi Trilogi Signature
                         </button>
                     </form>
                 </div>
@@ -170,106 +172,135 @@
                 </div>
                 <div>
                     <h3 class="text-lg font-serif text-white mb-2">Mengalkulasi Pilar Kosmik...</h3>
-                    <p class="text-sm text-gray-400">Menyelaraskan Zodiak & Neptu Jawa</p>
+                    <p class="text-sm text-gray-400">Merangkai Trilogi Fragrance Wardrobe</p>
                 </div>
             </div>
 
             <!-- Results Section -->
             <div id="results" class="hidden space-y-8 animate-fade-in pb-12">
                 <div class="text-center space-y-2">
-                    <p class="text-sm font-semibold text-[#BF953F] uppercase tracking-widest">Identitas Olfactory Selesai</p>
-                    <h2 id="res-signature-name" class="text-4xl sm:text-5xl font-serif font-bold gold-gradient py-2 uppercase tracking-wide"></h2>
+                    <p class="text-sm font-semibold text-[#BF953F] uppercase tracking-widest">Trilogi Olfactory Selesai</p>
+                    <h2 class="text-3xl font-serif font-bold text-white py-2 uppercase tracking-wide" id="res-client-name-title"></h2>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- DNA PILAR -->
-                    <div class="glass-panel p-6 rounded-xl border border-gray-800">
-                        <div class="flex items-center gap-2 mb-6 border-b border-gray-800 pb-4">
-                            <i data-lucide="dna" class="text-[#BF953F]"></i>
-                            <h3 class="text-lg font-bold text-white tracking-widest uppercase">4 Pilar DNA Klien</h3>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-400">Elemen Zodiak</span>
-                                <span id="res-zodiac" class="text-sm font-bold text-white bg-black/50 px-3 py-1 rounded"></span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-400">Neptu & Weton</span>
-                                <span id="res-weton" class="text-sm font-bold text-white bg-black/50 px-3 py-1 rounded border border-[#BF953F]/30"></span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-400">Golongan Darah</span>
-                                <span id="res-blood" class="text-sm font-bold text-white bg-black/50 px-3 py-1 rounded"></span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-400">Astrologi Shio</span>
-                                <span id="res-shio" class="text-sm font-bold text-white bg-black/50 px-3 py-1 rounded"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- RESEP RACIKAN -->
-                    <div class="glass-panel p-6 rounded-xl border border-[#BF953F]/30 relative overflow-hidden">
-                        <div class="absolute -right-6 -top-6 w-24 h-24 bg-[#BF953F]/10 rounded-full blur-2xl"></div>
-                        <div class="flex items-center gap-2 mb-6 border-b border-gray-800 pb-4 relative z-10">
-                            <i data-lucide="test-tubes" class="text-[#BF953F]"></i>
-                            <h3 class="text-lg font-bold text-white tracking-widest uppercase">Resep Racikan</h3>
-                        </div>
-                        <div class="space-y-6 relative z-10">
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span class="text-gray-300 font-semibold" id="res-perfume-1"></span>
-                                    <span class="text-[#BF953F] font-bold" id="res-ratio-1"></span>
-                                </div>
-                                <div class="w-full bg-gray-800 rounded-full h-2">
-                                    <div id="bar-1" class="bg-[#BF953F] h-2 rounded-full transition-all duration-1000" style="width: 0%"></div>
-                                </div>
-                                <p class="text-xs text-gray-500 mt-1 uppercase tracking-wider">Fondasi Utama</p>
-                            </div>
-                            
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span class="text-gray-300 font-semibold" id="res-perfume-2"></span>
-                                    <span class="text-white font-bold" id="res-ratio-2"></span>
-                                </div>
-                                <div class="w-full bg-gray-800 rounded-full h-2">
-                                    <div id="bar-2" class="bg-gray-400 h-2 rounded-full transition-all duration-1000" style="width: 0%"></div>
-                                </div>
-                                <p class="text-xs text-gray-500 mt-1 uppercase tracking-wider">Aksen Penyeimbang</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4 PARFUM ALTERNATIF -->
+                <!-- DNA PILAR -->
                 <div class="glass-panel p-6 rounded-xl border border-gray-800">
                     <div class="flex items-center gap-2 mb-6 border-b border-gray-800 pb-4">
-                        <i data-lucide="list" class="text-[#BF953F]"></i>
-                        <h3 class="text-lg font-bold text-white tracking-widest uppercase">4 Alternatif Parfum Profil Anda</h3>
+                        <i data-lucide="dna" class="text-[#BF953F]"></i>
+                        <h3 class="text-lg font-bold text-white tracking-widest uppercase">4 Pilar DNA Klien</h3>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-gray-900/50 p-4 rounded-lg border border-gray-800 flex items-center gap-4">
-                            <span class="text-[#BF953F] font-serif font-bold text-xl opacity-70">01</span>
-                            <span class="text-gray-200 text-sm font-semibold tracking-wide" id="res-alt-1"></span>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-black/50 p-3 rounded-lg border border-gray-800">
+                            <p class="text-xs text-gray-500 uppercase">Zodiak (Elemen)</p>
+                            <p class="text-sm font-bold text-[#BF953F] mt-1" id="res-zodiac"></p>
                         </div>
-                        <div class="bg-gray-900/50 p-4 rounded-lg border border-gray-800 flex items-center gap-4">
-                            <span class="text-[#BF953F] font-serif font-bold text-xl opacity-70">02</span>
-                            <span class="text-gray-200 text-sm font-semibold tracking-wide" id="res-alt-2"></span>
+                        <div class="bg-black/50 p-3 rounded-lg border border-[#BF953F]/30">
+                            <p class="text-xs text-[#BF953F] uppercase">Neptu & Weton</p>
+                            <p class="text-sm font-bold text-white mt-1" id="res-weton"></p>
                         </div>
-                        <div class="bg-gray-900/50 p-4 rounded-lg border border-gray-800 flex items-center gap-4">
-                            <span class="text-[#BF953F] font-serif font-bold text-xl opacity-70">03</span>
-                            <span class="text-gray-200 text-sm font-semibold tracking-wide" id="res-alt-3"></span>
+                        <div class="bg-black/50 p-3 rounded-lg border border-gray-800">
+                            <p class="text-xs text-gray-500 uppercase">Gol. Darah</p>
+                            <p class="text-sm font-bold text-[#BF953F] mt-1" id="res-blood"></p>
                         </div>
-                        <div class="bg-gray-900/50 p-4 rounded-lg border border-gray-800 flex items-center gap-4">
-                            <span class="text-[#BF953F] font-serif font-bold text-xl opacity-70">04</span>
-                            <span class="text-gray-200 text-sm font-semibold tracking-wide" id="res-alt-4"></span>
+                        <div class="bg-black/50 p-3 rounded-lg border border-gray-800">
+                            <p class="text-xs text-gray-500 uppercase">Shio Astrologi</p>
+                            <p class="text-sm font-bold text-[#BF953F] mt-1" id="res-shio"></p>
                         </div>
                     </div>
+                </div>
+
+                <!-- TRILOGY RECIPES -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- SIGNATURE I -->
+                    <div class="glass-panel p-6 rounded-xl border border-[#BF953F]/50 relative overflow-hidden group hover:border-[#BF953F] transition-colors">
+                        <div class="absolute -right-6 -top-6 w-24 h-24 bg-[#BF953F]/10 rounded-full blur-2xl"></div>
+                        <p class="text-xs font-bold text-[#BF953F] uppercase tracking-widest mb-1">Signature I (Siang/Aktivitas)</p>
+                        <h3 class="text-xl font-serif font-bold text-white mb-6" id="res-sig1-name"></h3>
+                        
+                        <div class="space-y-4 relative z-10">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-gray-300" id="res-sig1-p1"></span>
+                                    <span class="text-[#BF953F] font-bold" id="res-sig1-r1"></span>
+                                </div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                    <div id="bar-1-1" class="bg-[#BF953F] h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-gray-400" id="res-sig1-p2"></span>
+                                    <span class="text-white font-bold" id="res-sig1-r2"></span>
+                                </div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                    <div id="bar-1-2" class="bg-gray-400 h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SIGNATURE II -->
+                    <div class="glass-panel p-6 rounded-xl border border-gray-700 relative overflow-hidden group hover:border-[#BF953F]/80 transition-colors">
+                        <div class="absolute -right-6 -top-6 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl"></div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Signature II (Malam/Intim)</p>
+                        <h3 class="text-xl font-serif font-bold text-white mb-6" id="res-sig2-name"></h3>
+                        
+                        <div class="space-y-4 relative z-10">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-gray-300" id="res-sig2-p1"></span>
+                                    <span class="text-[#BF953F] font-bold" id="res-sig2-r1"></span>
+                                </div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                    <div id="bar-2-1" class="bg-[#BF953F] h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-gray-400" id="res-sig2-p2"></span>
+                                    <span class="text-white font-bold" id="res-sig2-r2"></span>
+                                </div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                    <div id="bar-2-2" class="bg-gray-400 h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SIGNATURE III -->
+                    <div class="glass-panel p-6 rounded-xl border border-gray-700 relative overflow-hidden group hover:border-[#BF953F]/80 transition-colors">
+                        <div class="absolute -right-6 -top-6 w-24 h-24 bg-red-500/5 rounded-full blur-2xl"></div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Signature III (Sosial/Karir)</p>
+                        <h3 class="text-xl font-serif font-bold text-white mb-6" id="res-sig3-name"></h3>
+                        
+                        <div class="space-y-4 relative z-10">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-gray-300" id="res-sig3-p1"></span>
+                                    <span class="text-[#BF953F] font-bold" id="res-sig3-r1"></span>
+                                </div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                    <div id="bar-3-1" class="bg-[#BF953F] h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-gray-400" id="res-sig3-p2"></span>
+                                    <span class="text-white font-bold" id="res-sig3-r2"></span>
+                                </div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                    <div id="bar-3-2" class="bg-gray-400 h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- FILOSOFI -->
                 <div class="glass-panel p-6 rounded-xl border border-gray-800">
-                    <h3 class="text-xs font-bold text-[#BF953F] uppercase tracking-widest mb-3">Filosofi Mahakarya</h3>
+                    <h3 class="text-xs font-bold text-[#BF953F] uppercase tracking-widest mb-3">Filosofi Fragrance Wardrobe</h3>
                     <p id="res-philosophy" class="text-gray-300 text-sm leading-relaxed italic"></p>
                 </div>
 
@@ -278,9 +309,9 @@
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <h3 class="text-xs font-bold text-[#BF953F] uppercase tracking-widest flex items-center gap-2">
-                                <i data-lucide="sparkles" class="w-4 h-4"></i> Prompt Gambar AI
+                                <i data-lucide="sparkles" class="w-4 h-4"></i> Prompt Gambar AI (Koleksi 3 Botol)
                             </h3>
-                            <p class="text-xs text-gray-500 mt-1">Salin teks ini ke Midjourney/DALL-E untuk membuat gambar promosi botol parfum.</p>
+                            <p class="text-xs text-gray-500 mt-1">Salin teks ini ke Midjourney/DALL-E untuk membuat gambar promosi Trilogi ini.</p>
                         </div>
                         <button onclick="copyPrompt()" id="btn-copy" class="text-gray-400 hover:text-white transition-colors bg-gray-900 p-2 rounded-lg border border-gray-700 hover:border-[#BF953F] focus:outline-none" title="Salin Prompt">
                             <i data-lucide="copy" class="w-4 h-4"></i>
@@ -292,7 +323,7 @@
                 <!-- ACTIONS -->
                 <div class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-gray-800">
                     <button onclick="generatePDF()" id="btn-download" class="flex-1 gold-bg font-bold uppercase tracking-wider text-sm py-4 rounded-lg transition-all duration-300 shadow-[0_0_15px_rgba(191,149,63,0.2)] hover:shadow-[0_0_25px_rgba(191,149,63,0.5)] flex items-center justify-center gap-2 text-black">
-                        <i data-lucide="download" class="w-5 h-5"></i> Unduh Sertifikat (PDF)
+                        <i data-lucide="download" class="w-5 h-5"></i> Unduh Sertifikat Trilogi (PDF)
                     </button>
                     <button onclick="resetApp()" class="px-8 bg-transparent border border-gray-700 text-gray-300 font-bold uppercase tracking-wider text-sm py-4 rounded-lg transition-all hover:bg-gray-800">
                         Racik Klien Lain
@@ -349,7 +380,6 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // Login Submit
         document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
@@ -380,7 +410,6 @@
                 });
         });
 
-        // Logout
         function logoutApp() {
             auth.signOut().then(() => {
                 document.getElementById('login-screen').classList.remove('hidden');
@@ -394,7 +423,7 @@
         }
 
         // -----------------------------
-        // DATABASE BIBIT PARFUM REFILL INDONESIA (>100 ITEM)
+        // DATABASE BIBIT PARFUM REFILL INDONESIA (Tersortir)
         // -----------------------------
         const perfumesMen = [
             { name: "Dior Sauvage", element: "Udara" }, { name: "Bvlgari Aqua", element: "Air" },
@@ -423,7 +452,56 @@
             { name: "Zara Man Silver", element: "Udara" }, { name: "Chanel Allure Homme Sport", element: "Udara" },
             { name: "Calvin Klein CK One", element: "Udara" }, { name: "Calvin Klein CK Be", element: "Udara" },
             { name: "Thierry Mugler A*Men", element: "Api" }, { name: "Abercrombie & Fitch Fierce", element: "Tanah" },
-            { name: "Jo Malone Wood Sage & Sea Salt", element: "Air" }
+            { name: "Jo Malone Wood Sage & Sea Salt", element: "Air" },
+            { name: "Bvlgari Aqva Marine", element: "Air" }, { name: "Bvlgari Aqva Amara", element: "Air" },
+            { name: "Bvlgari Pour Homme", element: "Tanah" }, { name: "Bvlgari BLV", element: "Tanah" },
+            { name: "Hugo Boss Orange", element: "Tanah" }, { name: "Hugo Boss The Scent", element: "Api" },
+            { name: "Hugo Just Different", element: "Api" }, { name: "Aigner White", element: "Tanah" },
+            { name: "Aigner No. 1", element: "Tanah" }, { name: "Aigner X-Limited", element: "Udara" },
+            { name: "Paco Rabanne XS", element: "Udara" }, { name: "Paco Rabanne 1 Million Lucky", element: "Api" },
+            { name: "Paco Rabanne Invictus Aqua", element: "Air" }, { name: "Benetton Cold", element: "Air" },
+            { name: "Benetton Hot", element: "Api" }, { name: "Police To Be", element: "Api" },
+            { name: "David Beckham Instinct", element: "Tanah" }, { name: "David Beckham Signature", element: "Air" },
+            { name: "Axe Africa", element: "Api" }, { name: "Axe Dark Temptation", element: "Api" },
+            { name: "Axe Apollo", element: "Udara" }, { name: "Axe Black", element: "Tanah" },
+            { name: "Carolina Herrera 212 VIP Black", element: "Api" }, { name: "Carolina Herrera 212 Men NYC", element: "Tanah" },
+            { name: "Carolina Herrera 212 Sexy Men", element: "Api" }, { name: "Zara Silver", element: "Udara" },
+            { name: "Zara Gold", element: "Api" }, { name: "Zara Uomo", element: "Api" },
+            { name: "Zara Seoul", element: "Air" }, { name: "Calvin Klein CK Free", element: "Udara" },
+            { name: "Calvin Klein CK In2U", element: "Udara" }, { name: "Calvin Klein Eternity Men", element: "Udara" },
+            { name: "Calvin Klein Escape Men", element: "Air" }, { name: "Ferrari Red", element: "Api" },
+            { name: "Ferrari Scuderia", element: "Udara" }, { name: "Gucci Guilty Pour Homme", element: "Tanah" },
+            { name: "Gucci By Gucci Men", element: "Tanah" }, { name: "Hermes H24", element: "Tanah" },
+            { name: "Kenzo Daun", element: "Tanah" }, { name: "Kenzo L'Eau Par", element: "Air" },
+            { name: "Ralph Lauren Polo Green", element: "Tanah" }, { name: "Ralph Lauren Polo Red", element: "Api" },
+            { name: "Ralph Lauren Polo Double Black", element: "Api" }, { name: "Thierry Mugler Alien Man", element: "Api" },
+            { name: "Versace Dylan Blue", element: "Air" }, { name: "Versace Eau Fraiche", element: "Air" },
+            { name: "Versace Eros Flame", element: "Api" }, { name: "Tommy Hilfiger Tommy Boy", element: "Udara" },
+            { name: "Antonio Banderas Golden Secret", element: "Api" }, { name: "Antonio Banderas Black Seduction", element: "Api" },
+            { name: "Guess Man", element: "Udara" }, { name: "Dior Fahrenheit", element: "Api" },
+            { name: "Dior Higher", element: "Udara" }, { name: "Givenchy Pi", element: "Api" },
+            { name: "Givenchy Gentlemen Only", element: "Tanah" }, { name: "Jo Malone Oud & Bergamot", element: "Tanah" },
+            { name: "Jo Malone Cypress & Grapevine", element: "Tanah" }, { name: "Jo Malone Myrrh & Tonka", element: "Api" },
+            { name: "Drakkar Noir", element: "Tanah" }, { name: "Adidas Ice Dive", element: "Air" },
+            { name: "Aigner Starlight", element: "Api" }, { name: "Maher Zain", element: "Udara" },
+            { name: "Minyak Sulaiman", element: "Tanah" }, { name: "Minyak Cobra", element: "Api" },
+            { name: "Garuda Indonesia EDT", element: "Udara" }, { name: "Parfum Pramugara", element: "Udara" },
+            { name: "Kasturi Kijang", element: "Tanah" }, { name: "Kasturi Putih", element: "Air" },
+            { name: "Hajar Aswad", element: "Api" }, { name: "Malaikat Subuh", element: "Tanah" },
+            { name: "Seribu Bunga", element: "Udara" }, { name: "2000 Bunga", element: "Api" },
+            { name: "Silver (Al-Rehab)", element: "Air" }, { name: "Sultan (Al-Rehab)", element: "Tanah" },
+            { name: "Dalal (Al-Rehab)", element: "Udara" }, { name: "Blanc (Al-Rehab)", element: "Air" },
+            { name: "Champion Black", element: "Tanah" }, { name: "Soft (Al-Rehab)", element: "Api" },
+            { name: "Baccarat Extrait", element: "Api" }, { name: "Creed Santal", element: "Api" },
+            { name: "Creed Viking", element: "Api" }, { name: "YSL L'Homme", element: "Tanah" },
+            { name: "Prada L'Homme", element: "Tanah" }, { name: "Tom Ford Ombre Leather", element: "Tanah" },
+            { name: "Tom Ford Tuscan Leather", element: "Api" }, { name: "Tom Ford Noir", element: "Api" },
+            { name: "Acqua Di Gio Profumo", element: "Air" }, { name: "Armani Code Profumo", element: "Api" },
+            { name: "Dior Ambre Nuit", element: "Api" }, { name: "Chanel Egoiste", element: "Tanah" },
+            { name: "Chanel Antaeus", element: "Tanah" }, { name: "Bvlgari Wood Essence", element: "Tanah" },
+            { name: "Bvlgari Glacial Essence", element: "Air" }, { name: "Carolina Herrera CH Men Privé", element: "Api" },
+            { name: "Diesel Only The Brave", element: "Api" }, { name: "Lalique Encre Noire", element: "Tanah" },
+            { name: "Montblanc Explorer", element: "Tanah" }
         ];
 
         const perfumesWomen = [
@@ -454,12 +532,105 @@
             { name: "Thierry Mugler Alien", element: "Api" }, { name: "Tom Ford Black Orchid", element: "Tanah" },
             { name: "Versace Bright Crystal", element: "Air" }, { name: "Victoria's Secret Tease", element: "Api" },
             { name: "Victoria's Secret Love Spell", element: "Udara" }, { name: "YSL Libre", element: "Udara" },
-            { name: "Zara Orchid", element: "Tanah" }, { name: "Zara Gardenia", element: "Api" }
+            { name: "Zara Orchid", element: "Tanah" }, { name: "Zara Gardenia", element: "Api" },
+            { name: "VS Pure Seduction", element: "Api" }, { name: "VS Vanilla Lace", element: "Api" },
+            { name: "VS Romantic Wish", element: "Udara" }, { name: "VS Velvet Petals", element: "Tanah" },
+            { name: "VS Aqua Kiss", element: "Air" }, { name: "VS Coconut Passion", element: "Api" },
+            { name: "VS Secret Charm", element: "Udara" }, { name: "VS So In Love", element: "Tanah" },
+            { name: "VS Endless Love", element: "Air" }, { name: "TBS Strawberry", element: "Udara" },
+            { name: "TBS Cherry Blossom", element: "Tanah" }, { name: "TBS Aqua Lily", element: "Air" },
+            { name: "TBS Japanese Cherry Blossom", element: "Tanah" }, { name: "TBS Fijian Water Lotus", element: "Air" },
+            { name: "BBW Sweet Pea", element: "Udara" }, { name: "BBW Dark Kiss", element: "Api" },
+            { name: "BBW Gingham", element: "Air" }, { name: "BBW In The Stars", element: "Api" },
+            { name: "BBW Rose", element: "Tanah" }, { name: "BBW Warm Vanilla", element: "Api" },
+            { name: "Anna Sui Secret Wish", element: "Udara" }, { name: "Anna Sui Flight of Fancy", element: "Udara" },
+            { name: "Anna Sui Dolly Girl", element: "Tanah" }, { name: "Anna Sui Fantasia", element: "Api" },
+            { name: "Anna Sui Romantica", element: "Tanah" }, { name: "Escada Cherry in the Air", element: "Udara" },
+            { name: "Escada Magnetism", element: "Api" }, { name: "Escada Pacific Paradise", element: "Air" },
+            { name: "Escada Island Kiss", element: "Udara" }, { name: "Escada Rockin Rio", element: "Api" },
+            { name: "Escada Taj Sunset", element: "Udara" }, { name: "Katy Perry Killer Queen", element: "Api" },
+            { name: "Paris Hilton Siren", element: "Air" }, { name: "Paris Hilton Passport", element: "Udara" },
+            { name: "Britney Spears Midnight Fantasy", element: "Api" }, { name: "Britney Spears Curious", element: "Tanah" },
+            { name: "JLo Still", element: "Air" }, { name: "JLo Live", element: "Udara" },
+            { name: "JLo Glow", element: "Tanah" }, { name: "SJP Lovely", element: "Tanah" },
+            { name: "Taylor Swift Taylor", element: "Udara" }, { name: "Zara Rose", element: "Tanah" },
+            { name: "Zara Femme", element: "Tanah" }, { name: "Zara Red Vanilla", element: "Api" },
+            { name: "Zara Oriental", element: "Api" }, { name: "Zara Applejuice", element: "Udara" },
+            { name: "Zara Wonder Rose", element: "Tanah" }, { name: "Chanel Gabrielle", element: "Tanah" },
+            { name: "Chanel Allure", element: "Api" }, { name: "Dior Addict", element: "Api" },
+            { name: "Dior Joy", element: "Udara" }, { name: "Gucci Rush", element: "Api" },
+            { name: "Gucci Bamboo", element: "Tanah" }, { name: "YSL Mon Paris", element: "Api" },
+            { name: "Lancome Tresor", element: "Api" }, { name: "Lancome Idole", element: "Tanah" },
+            { name: "Bvlgari Rose Goldea", element: "Tanah" }, { name: "Bvlgari Jasmin Noir", element: "Api" },
+            { name: "Kenzo Amour", element: "Api" }, { name: "Kenzo Jungle", element: "Api" },
+            { name: "Issey Miyake Pleats Please", element: "Udara" }, { name: "Jo Malone Nectarine Blossom & Honey", element: "Udara" },
+            { name: "Jo Malone Blackberry & Bay", element: "Tanah" }, { name: "Jo Malone Blue Agava & Cacao", element: "Api" },
+            { name: "Zwitsal Baby", element: "Udara" }, { name: "Cussons Baby", element: "Udara" },
+            { name: "Incanto Shine", element: "Air" }, { name: "Aigner Too Feminine", element: "Tanah" },
+            { name: "Justin Bieber Someday", element: "Api" }, { name: "Harajuku Lovers", element: "Udara" },
+            { name: "BBW Pink Chiffon", element: "Api" },
+            { name: "Parfum Pramugari", element: "Udara" }, 
+            { name: "Baccarat Extrait 540", element: "Api" }, { name: "Black Opium Floral", element: "Tanah" },
+            { name: "Carolina Herrera Good Girl", element: "Api" }, { name: "Carolina Herrera 212 VIP Rose", element: "Api" },
+            { name: "Thierry Mugler Angel", element: "Api" }, { name: "Elie Saab Girl of Now", element: "Udara" },
+            { name: "Givenchy L'Interdit", element: "Tanah" }, { name: "Hermes Twilly", element: "Tanah" },
+            { name: "Jean Paul Gaultier Alien", element: "Api" }, { name: "Jean Paul Gaultier Scandal", element: "Api" },
+            { name: "Marc Jacobs Decadence", element: "Api" }, { name: "Marc Jacobs Perfect", element: "Udara" },
+            { name: "Narciso Rodriguez For Her", element: "Tanah" }, { name: "Paco Rabanne Olympea", element: "Api" },
+            { name: "Tom Ford Lost Cherry", element: "Api" }, { name: "Tom Ford Soleil Blanc", element: "Api" },
+            { name: "Versace Crystal Noir", element: "Api" }, { name: "Versace Yellow Diamond", element: "Api" },
+            { name: "Chopard Soleil", element: "Udara" }, { name: "Elizabeth Arden Modern Muse", element: "Tanah" },
+            { name: "Elizabeth Arden Red Door", element: "Tanah" }, { name: "Juicy Couture Daisy", element: "Udara" }
         ];
 
         const namingVocab = {
-            latin: ["Ignis", "Aqua", "Terra", "Ventus", "Aeterna", "Lumen", "Verum", "Divina", "Mysterium", "Nova", "Clara", "Aura", "Aetas", "Aether", "Caelum", "Fatum"],
-            sanskrit: ["Vyoman", "Kaivalya", "Ojas", "Akasha", "Bindu", "Rta", "Tattva", "Anima", "Prana", "Sattva", "Vasa", "Loka", "Moksha", "Samsara", "Dharma"]
+            latin: [
+                "Ignis", "Aqua", "Terra", "Ventus", "Aeterna", "Lumen", "Verum", "Divina", "Mysterium", "Nova", 
+                "Clara", "Aura", "Aetas", "Aether", "Caelum", "Fatum", "Sol", "Luna", "Stella", "Natura", 
+                "Vita", "Anima", "Spiritus", "Flos", "Silva", "Mare", "Oceanus", "Nubes", "Dies", "Nox", 
+                "Tempus", "Aeternitas", "Veritas", "Bonum", "Pulchrum", "Altum", "Profundum", "Forte", "Purum", 
+                "Sanctum", "Felix", "Absolutum", "Perfectum", "Essentia", "Potentia", "Forma", "Materia", "Amore", 
+                "Spero", "Luceo", "Volo", "Canto", "Magnus", "Regina", "Rex", "Imperium", "Gloria", "Honor", 
+                "Virtus", "Fortitudo", "Sapientia", "Iustitia", "Temperantia", "Prudentia", "Spes", "Fides", "Caritas", 
+                "Gaudium", "Laetitia", "Pax", "Tranquillitas", "Serenitas", "Silentium", "Harmonia", "Symphonia", "Melodia", 
+                "Carmen", "Oda", "Poema", "Fabula", "Historia", "Memoria", "Oblivio", "Somnium", "Visio", "Phantasia", 
+                "Imago", "Idaea", "Conceptus", "Intellectus", "Ratio", "Logica", "Dialectica", "Rhetorica", "Grammatica", 
+                "Ars", "Scientia", "Philosophia", "Theologia", "Initium", "Finis", "Alpha", "Omega", "Centrum", "Circulus", 
+                "Sphaera", "Linea", "Punctum", "Spatium", "Locus", "Motus", "Quies", "Actus", "Habitus", "Causa", "Effectus", 
+                "Ordo", "Chaos", "Cosmos", "Universum", "Mundus", "Astrum", "Planeta", "Cometa", "Meteor", "Galaxia", 
+                "Nebulosa", "Zenith", "Nadir", "Aurora", "Crepusculum", "Vesper", "Mane", "Meridies", "Tenebrae", "Umbra", 
+                "Lux", "Splendor", "Fulgor", "Radiance", "Coruscatio", "Nitor", "Candor", "Claritas", "Maiestas", "Ferox", 
+                "Audax", "Sagax", "Tenax", "Velox", "Rapax", "Vivax", "Capax", "Efficax", "Perspicax", "Pervicax", "Pugnax"
+            ],
+            sanskrit: [
+                "Vyoman", "Kaivalya", "Ojas", "Akasha", "Bindu", "Rta", "Tattva", "Anima", "Prana", "Sattva", 
+                "Vasa", "Loka", "Moksha", "Samsara", "Dharma", "Karma", "Jnana", "Bhakti", "Yoga", "Samadhi", 
+                "Nirvana", "Brahman", "Atman", "Purusha", "Prakriti", "Maya", "Vidya", "Mantra", "Tantra", "Yantra", 
+                "Mandala", "Chakra", "Nadi", "Kundalini", "Om", "Nada", "Shabda", "Nama", "Rupa", "Satya", 
+                "Nitya", "Shuddha", "Punya", "Sukha", "Surya", "Chandra", "Tara", "Prithvi", "Tejas", "Vayu", 
+                "Indra", "Agni", "Varuna", "Mitra", "Yama", "Kala", "Kama", "Deva", "Devi", "Asura", 
+                "Naga", "Yaksha", "Gandharva", "Kinnara", "Vidyadhara", "Siddha", "Rishi", "Muni", "Guru", "Acharya", 
+                "Shishya", "Avatara", "Lila", "Kripa", "Karuna", "Daya", "Prema", "Kshama", "Shanti", "Ahimsa", 
+                "Satyam", "Asteya", "Brahmacharya", "Aparigraha", "Shaucha", "Santosha", "Tapas", "Svadhyaya", "Ishvara", 
+                "Pranidhana", "Yajna", "Dana", "Samskara", "Varna", "Ashrama", "Brahmana", "Kshatriya", "Vaishya", "Shudra", 
+                "Artha", "Srishti", "Sthiti", "Laya", "Tirobhava", "Anugraha", "Brahma", "Vishnu", "Shiva", "Saraswati", 
+                "Lakshmi", "Parvati", "Durga", "Kali", "Ganesha", "Kartikeya", "Skanda", "Kumara", "Murugan", "Subramanya", 
+                "Guha", "Mahasena", "Senani", "Vishakha", "Shikhi", "Vahana", "Mayura", "Kukkuta", "Tarakajit", "Shakti", 
+                "Vala", "Danda", "Khadga", "Pasha", "Ankusha", "Trishula", "Parashu", "Dhanus", "Shara"
+            ],
+            accents: [
+                "Privé", "Absolu", "Extrait", "Elixir", "Intense", "Noir", "Blanc", "Rouge", "Or", "Argent", 
+                "Lumière", "Éclat", "Essence", "Suprême", "Majeur", "Royal", "Impérial", "Aura", "Signatur", "Velours", 
+                "Soie", "Cristal", "Saphir", "Rubis", "Émeraude", "Diamant", "Platine", "Titanium", "Charnel", "Noble", 
+                "Prestige", "Majesté", "Élégance", "Charme", "Séduction", "Nuit", "Soleil", "Aqua", "Céleste", "Mystique", 
+                "Secret", "Fleur", "Boise", "Ambre", "Musc", "Oud", "Santal", "Nectar", "Parfum", "Éthéré"
+            ],
+            numerals: [
+                "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", 
+                "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", 
+                "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", 
+                "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX", "XL"
+            ]
         };
 
         // Algoritma Astrologi
@@ -483,7 +654,6 @@
 
         const shio = ["Monyet", "Ayam", "Anjing", "Babi", "Tikus", "Kerbau", "Macan", "Kelinci", "Naga", "Ular", "Kuda", "Kambing"];
 
-        // Generator deterministic
         function cyrb128(str) {
             let h1 = 1779033703, h2 = 3144134277, h3 = 1013904242, h4 = 2773480762;
             for (let i = 0, k; i < str.length; i++) {
@@ -500,13 +670,28 @@
             return (h1^h2^h3^h4) >>> 0;
         }
 
+        // Generator Nama Unik 4D
+        function generateName(hashVal) {
+            const lLen = namingVocab.latin.length;
+            const sLen = namingVocab.sanskrit.length;
+            const aLen = namingVocab.accents.length;
+            const nLen = namingVocab.numerals.length;
+            
+            let p1 = namingVocab.latin[hashVal % lLen];
+            let p2 = namingVocab.sanskrit[(hashVal * 7) % sLen];
+            let p3 = namingVocab.accents[(hashVal * 11) % aLen];
+            let p4 = namingVocab.numerals[(hashVal * 13) % nLen];
+
+            return `${p1} ${p2} ${p3} ${p4}`;
+        }
+
         let currentClient = {};
 
         // Event Form Submit
         document.getElementById('perfume-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const name = document.getElementById('client-name').value.trim(); // Menghapus spasi tidak disengaja di ujung untuk konsistensi Hash
+            const name = document.getElementById('client-name').value.trim();
             const gender = document.getElementById('client-gender').value;
             const dob = document.getElementById('client-dob').value;
             const blood = document.getElementById('client-blood').value;
@@ -531,8 +716,8 @@
             
             const shioName = shio[dateObj.getFullYear() % 12];
             
-            // Kunci Hash Konsisten
-            const seedString = `${name.toLowerCase()}-${dob}-${blood}`;
+            // Kunci Hash Konsisten 100%
+            const seedString = `${name.toLowerCase()}-${zodiac.z}-${wetonName}-${blood}-${shioName}`;
             const hash = cyrb128(seedString);
 
             document.getElementById('form-section').classList.add('hidden');
@@ -543,97 +728,91 @@
             let elementMatches = db.filter(p => p.element === zodiac.e);
             if(elementMatches.length === 0) elementMatches = db;
             
-            const sig1 = elementMatches[hash % elementMatches.length];
+            // --- PEMBANGUNAN TRILOGI SIGNATURE (3 Racikan Berbeda tapi tetap berdasar DNA) ---
             
-            let sig2;
-            do {
-                sig2 = db[(hash * 13) % db.length];
-            } while (sig1.name === sig2.name);
-
-            // 4 Alternatif Parfum Generator
-            let alts = [];
-            let multiplier = 17;
-            while(alts.length < 4) {
-                let candidate = db[(hash * multiplier) % db.length].name;
-                if(candidate !== sig1.name && candidate !== sig2.name && !alts.includes(candidate)) {
-                    alts.push(candidate);
-                }
-                multiplier += 3;
-            }
-
-            const baseRatio = 55 + (neptu * 1.5);
-            const ratio1 = Math.min(Math.floor(baseRatio), 89);
-            const ratio2 = 100 - ratio1;
-
-            const lLen = namingVocab.latin.length;
-            const sLen = namingVocab.sanskrit.length;
+            // Rasio Utama dari Neptu (bervariasi tipis antar signature agar dinamis)
+            const baseRatio = 55 + (neptu * 1.2);
             
-            const wordCount = (hash % 2 === 0) ? 2 : 3;
-            const startPattern = (hash % 3 === 0) ? 0 : 1; 
+            // SIGNATURE I (Siang/Aktivitas)
+            let hash1 = hash;
+            let sig1_1 = elementMatches[hash1 % elementMatches.length];
+            let sig1_2;
+            do { sig1_2 = db[(hash1 * 13) % db.length]; } while (sig1_1.name === sig1_2.name);
+            let r1_1 = Math.min(Math.floor(baseRatio), 85);
+            let r1_2 = 100 - r1_1;
+            let name1 = generateName(hash1);
 
-            let p1 = startPattern === 0 ? namingVocab.latin[hash % lLen] : namingVocab.sanskrit[hash % sLen];
-            let p2 = startPattern === 0 ? namingVocab.sanskrit[(hash * 7) % sLen] : namingVocab.latin[(hash * 7) % lLen];
-            let p3 = startPattern === 0 ? namingVocab.latin[(hash * 11) % lLen] : namingVocab.sanskrit[(hash * 11) % sLen];
+            // SIGNATURE II (Malam/Intim)
+            let hash2 = hash * 17;
+            let sig2_1 = elementMatches[hash2 % elementMatches.length];
+            let sig2_2;
+            do { sig2_2 = db[(hash2 * 19) % db.length]; } while (sig2_1.name === sig2_2.name || sig2_1.name === sig1_1.name);
+            let r2_1 = Math.min(Math.floor(baseRatio - 5), 85); // Rasio sedikit dimodifikasi
+            let r2_2 = 100 - r2_1;
+            let name2 = generateName(hash2);
 
-            if (wordCount === 3 && p1 === p3) {
-                if(startPattern === 0) p3 = namingVocab.latin[(Math.floor(hash / 100) + 1) % lLen];
-                else p3 = namingVocab.sanskrit[(Math.floor(hash / 100) + 1) % sLen];
-            }
+            // SIGNATURE III (Karir/Sosial)
+            let hash3 = hash * 31;
+            let sig3_1 = elementMatches[hash3 % elementMatches.length];
+            let sig3_2;
+            do { sig3_2 = db[(hash3 * 23) % db.length]; } while (sig3_1.name === sig3_2.name || sig3_1.name === sig1_1.name || sig3_1.name === sig2_1.name);
+            let r3_1 = Math.min(Math.floor(baseRatio + 5), 85);
+            let r3_2 = 100 - r3_1;
+            let name3 = generateName(hash3);
 
-            const signatureName = wordCount === 2 ? `${p1} ${p2}` : `${p1} ${p2} ${p3}`;
-
-            const bgThemes = { 
-                "Api": "sunlit royal golden palace with grand windows and bright marble", 
-                "Tanah": "bright, airy botanical glasshouse with natural sunlight and elegant light wood", 
-                "Air": "luminous, sun-drenched coastal luxury villa overlooking crystal clear waters", 
-                "Udara": "bright, high-altitude modern penthouse with floor-to-ceiling windows and abundant daylight" 
-            };
-            const fashion = gender === "Pria" ? "tailored velvet tuxedo" : (gender === "Wanita" ? "haute couture silk gown" : "avant-garde minimalist suit");
-            const colorPalette = { "Api": "Gold and Crimson", "Tanah": "Emerald and Bronze", "Air": "Indigo and Silver", "Udara": "Sapphire and White" }[zodiac.e];
-
-            const prompt = `[LINK_FOTO_ANDA_DISINI] Modern high-fashion editorial photograph. Subject dressed in ${fashion}. ENVIRONMENT: Set in ${bgThemes[zodiac.e]}. COLOR PALETTE: ${colorPalette}. LIGHTING: Luminous, bright studio lighting with crisp details, ensuring every glass bottle is brilliantly lit. BOTTLES: Exactly 4 distinct perfumes accurately shown: ${alts[0]}, ${alts[1]}, ${alts[2]}, ${alts[3]}. CENTERPIECE: A 5th majestic bottle featuring a LARGE, PROMINENT, HIGH-CONTRAST WHITE PREMIUM STICKER LABEL on its front. The typography MUST BE HUGE, CRISP, AND EXTREMELY READABLE. The label MUST boldly say exactly: "${signatureName}". Right below it, the composition recipe must cleanly say: "${ratio1}% ${sig1.name.toUpperCase()} + ${ratio2}% ${sig2.name.toUpperCase()}". No duplicates.`;
+            const prompt = `[LINK_FOTO_ANDA_DISINI] Modern high-fashion editorial photograph. Luminous, bright studio lighting with crisp details, ensuring every glass bottle is brilliantly lit. BOTTLES: A luxury collection of EXACTLY 3 majestic perfume bottles standing proudly together. The bottles must feature LARGE, PROMINENT, HIGH-CONTRAST WHITE PREMIUM STICKER LABELS on their fronts. The typography MUST BE HUGE, CRISP, AND EXTREMELY READABLE. Bottle 1 label says exactly: "${name1}". Bottle 2 label says exactly: "${name2}". Bottle 3 label says exactly: "${name3}". NO DUPLICATES.`;
 
             setTimeout(() => {
                 document.getElementById('loading').classList.add('hidden');
                 document.getElementById('results').classList.remove('hidden');
 
-                document.getElementById('res-signature-name').innerText = signatureName;
+                document.getElementById('res-client-name-title').innerText = name.toUpperCase();
                 document.getElementById('res-zodiac').innerText = `${zodiac.z} (${zodiac.e})`;
                 document.getElementById('res-weton').innerText = `${wetonName} (Neptu ${neptu})`;
                 document.getElementById('res-blood').innerText = `Gol. Darah ${blood}`;
                 document.getElementById('res-shio').innerText = `Shio ${shioName}`;
 
-                document.getElementById('res-perfume-1').innerText = sig1.name;
-                document.getElementById('res-ratio-1').innerText = `${ratio1}%`;
-                document.getElementById('bar-1').style.width = `${ratio1}%`;
+                // Render Sig 1
+                document.getElementById('res-sig1-name').innerText = name1;
+                document.getElementById('res-sig1-p1').innerText = sig1_1.name;
+                document.getElementById('res-sig1-r1').innerText = `${r1_1}%`;
+                document.getElementById('bar-1-1').style.width = `${r1_1}%`;
+                document.getElementById('res-sig1-p2').innerText = sig1_2.name;
+                document.getElementById('res-sig1-r2').innerText = `${r1_2}%`;
+                document.getElementById('bar-1-2').style.width = `${r1_2}%`;
 
-                document.getElementById('res-perfume-2').innerText = sig2.name;
-                document.getElementById('res-ratio-2').innerText = `${ratio2}%`;
-                document.getElementById('bar-2').style.width = `${ratio2}%`;
+                // Render Sig 2
+                document.getElementById('res-sig2-name').innerText = name2;
+                document.getElementById('res-sig2-p1').innerText = sig2_1.name;
+                document.getElementById('res-sig2-r1').innerText = `${r2_1}%`;
+                document.getElementById('bar-2-1').style.width = `${r2_1}%`;
+                document.getElementById('res-sig2-p2').innerText = sig2_2.name;
+                document.getElementById('res-sig2-r2').innerText = `${r2_2}%`;
+                document.getElementById('bar-2-2').style.width = `${r2_2}%`;
 
-                // Render 4 Alternatif
-                document.getElementById('res-alt-1').innerText = alts[0];
-                document.getElementById('res-alt-2').innerText = alts[1];
-                document.getElementById('res-alt-3').innerText = alts[2];
-                document.getElementById('res-alt-4').innerText = alts[3];
+                // Render Sig 3
+                document.getElementById('res-sig3-name').innerText = name3;
+                document.getElementById('res-sig3-p1').innerText = sig3_1.name;
+                document.getElementById('res-sig3-r1').innerText = `${r3_1}%`;
+                document.getElementById('bar-3-1').style.width = `${r3_1}%`;
+                document.getElementById('res-sig3-p2').innerText = sig3_2.name;
+                document.getElementById('res-sig3-r2').innerText = `${r3_2}%`;
+                document.getElementById('bar-3-2').style.width = `${r3_2}%`;
 
-                document.getElementById('res-philosophy').innerText = `Sebuah mahakarya linguistik alkimia Romawi kuno dan mistisisme Sansekerta. Fondasi dominan ${sig1.name} diracik secara matematis untuk mengunci elemen ${zodiac.e} dari Zodiak ${zodiac.z} Anda, sementara aksen ${sig2.name} menyeimbangkan karakter batin Golongan Darah ${blood} secara absolut.`;
+                document.getElementById('res-philosophy').innerText = `Tiga mahakarya linguistik alkimia ini merupakan manifestasi absolut dari DNA Anda. Koleksi Fragrance Wardrobe ini dirancang dari elemen Zodiak ${zodiac.e}, dikalibrasi oleh Neptu ${neptu}, dan diharmonisasikan secara sempurna untuk menyelaraskan karakter batin Golongan Darah ${blood} dalam tiga dimensi waktu: Siang (Aktivitas), Malam (Intim), dan Sosial (Karir).`;
 
                 document.getElementById('res-prompt').innerText = prompt;
 
                 currentClient = {
                     name: name.toUpperCase(),
-                    signatureName: signatureName,
                     zodiac: zodiac,
                     weton: wetonName,
                     neptu: neptu,
                     blood: blood,
                     shio: shioName,
-                    sig1: sig1.name,
-                    sig2: sig2.name,
-                    ratio1: ratio1,
-                    ratio2: ratio2,
-                    alts: alts // Disimpan untuk dirender di PDF
+                    s1: { name: name1, p1: sig1_1.name, p2: sig1_2.name, r1: r1_1, r2: r1_2 },
+                    s2: { name: name2, p1: sig2_1.name, p2: sig2_2.name, r1: r2_1, r2: r2_2 },
+                    s3: { name: name3, p1: sig3_1.name, p2: sig3_2.name, r1: r3_1, r2: r3_2 }
                 };
 
             }, 2500);
@@ -645,8 +824,9 @@
             document.getElementById('form-section').classList.remove('hidden');
             document.getElementById('perfume-form').reset();
             
-            document.getElementById('bar-1').style.width = '0%';
-            document.getElementById('bar-2').style.width = '0%';
+            document.getElementById('bar-1-1').style.width = '0%'; document.getElementById('bar-1-2').style.width = '0%';
+            document.getElementById('bar-2-1').style.width = '0%'; document.getElementById('bar-2-2').style.width = '0%';
+            document.getElementById('bar-3-1').style.width = '0%'; document.getElementById('bar-3-2').style.width = '0%';
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -689,7 +869,7 @@
         }
 
         // -----------------------------
-        // FITUR UNDUH SERTIFIKAT PDF 
+        // FITUR UNDUH SERTIFIKAT PDF (Diperbarui untuk Trilogi)
         // -----------------------------
         function generatePDF() {
             try {
@@ -708,9 +888,7 @@
                 const pWidth = doc.internal.pageSize.getWidth();
                 const pHeight = doc.internal.pageSize.getHeight();
 
-                // RGB untuk warna Emas 24K murni
                 const gold24k = [212, 175, 55];
-                // RGB untuk warna Putih Gading (Ivory) untuk teks pendukung agar tidak bertabrakan dengan emas
                 const ivory = [240, 240, 235];
 
                 // 1. Background Hitam Pekat
@@ -724,12 +902,12 @@
                 doc.setLineWidth(0.3);
                 doc.rect(12, 12, pWidth - 24, pHeight - 24, 'S');
 
-                // 3. WATERMARK TRANSPARAN (DI TENGAH)
+                // 3. WATERMARK TRANSPARAN
                 doc.saveGraphicsState();
                 doc.setGState(new doc.GState({opacity: 0.04}));
                 doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]); 
                 doc.setFont("helvetica", "bold");
-                doc.setFontSize(55); // Diperkecil agar tidak terlalu ke pinggir
+                doc.setFontSize(55); 
                 doc.text("SCENTGLIDE", pWidth/2, pHeight/2, { align: "center", angle: 45 });
                 doc.restoreGraphicsState();
 
@@ -737,115 +915,115 @@
                 doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]);
                 doc.setFont("helvetica", "bold");
                 doc.setFontSize(24);
-                doc.text("SCENTGLIDE", pWidth/2, 35, { align: "center" });
+                doc.text("SCENTGLIDE", pWidth/2, 28, { align: "center" });
                 
                 doc.setFontSize(10);
                 doc.setTextColor(ivory[0], ivory[1], ivory[2]);
-                doc.text("CERTIFICATE OF BESPOKE OLFACTORY DNA", pWidth/2, 42, { align: "center" });
+                doc.text("CERTIFICATE OF BESPOKE FRAGRANCE WARDROBE", pWidth/2, 35, { align: "center" });
                 
                 doc.setDrawColor(gold24k[0], gold24k[1], gold24k[2]);
-                doc.line(pWidth/2 - 40, 48, pWidth/2 + 40, 48);
+                doc.line(pWidth/2 - 45, 41, pWidth/2 + 45, 41);
 
                 // 5. Info Klien
-                doc.setFontSize(12);
+                doc.setFontSize(11);
                 doc.setTextColor(180, 180, 180);
-                doc.text("This certifies that the signature fragrance for:", pWidth/2, 70, { align: "center" });
+                doc.text("This certifies that the trilogy collection for:", pWidth/2, 55, { align: "center" });
                 
-                doc.setFontSize(20);
-                doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]); // Nama Klien Emas
-                doc.text(currentClient.name, pWidth/2, 82, { align: "center" });
-
-                doc.setFontSize(12);
-                doc.setTextColor(180, 180, 180);
-                doc.text("has been officially designated as:", pWidth/2, 100, { align: "center" });
-
-                doc.setFont("times", "italic");
-                doc.setFontSize(32);
-                doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]); // Nama Parfum Emas
-                doc.text(currentClient.signatureName, pWidth/2, 118, { align: "center" });
+                doc.setFontSize(18);
+                doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]);
+                doc.text(currentClient.name, pWidth/2, 65, { align: "center" });
 
                 doc.setDrawColor(50, 50, 50);
-                doc.line(30, 130, pWidth - 30, 130);
+                doc.line(30, 75, pWidth - 30, 75);
 
                 // 6. Matriks DNA 
                 doc.setFont("helvetica", "bold");
-                doc.setFontSize(14);
+                doc.setFontSize(12);
                 doc.setTextColor(ivory[0], ivory[1], ivory[2]);
-                doc.text("DNA PROFILING MATRIX", pWidth/2, 145, { align: "center" });
+                doc.text("DNA PROFILING MATRIX", pWidth/2, 85, { align: "center" });
 
                 doc.setFont("helvetica", "normal");
-                doc.setFontSize(11);
+                doc.setFontSize(10);
                 
                 const leftCol = 45;
                 const rightCol = pWidth/2 + 10;
                 
                 doc.setTextColor(180, 180, 180);
-                doc.text(`Zodiac Element:`, leftCol, 158);
+                doc.text(`Zodiac Element:`, leftCol, 95);
                 doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]);
-                doc.text(`${currentClient.zodiac.z} (${currentClient.zodiac.e})`, leftCol, 164);
+                doc.text(`${currentClient.zodiac.z} (${currentClient.zodiac.e})`, leftCol, 100);
                 
                 doc.setTextColor(180, 180, 180);
-                doc.text(`Numerology:`, rightCol, 158);
+                doc.text(`Numerology:`, rightCol, 95);
                 doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]);
-                doc.text(`${currentClient.weton} (Neptu ${currentClient.neptu})`, rightCol, 164);
+                doc.text(`${currentClient.weton} (Neptu ${currentClient.neptu})`, rightCol, 100);
 
                 doc.setTextColor(180, 180, 180);
-                doc.text(`Blood Type:`, leftCol, 175);
+                doc.text(`Blood Type:`, leftCol, 108);
                 doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]);
-                doc.text(`Type ${currentClient.blood}`, leftCol, 181);
+                doc.text(`Type ${currentClient.blood}`, leftCol, 113);
 
                 doc.setTextColor(180, 180, 180);
-                doc.text(`Eastern Astrolgy:`, rightCol, 175);
+                doc.text(`Eastern Astrolgy:`, rightCol, 108);
                 doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]);
-                doc.text(`Shio ${currentClient.shio}`, rightCol, 181);
+                doc.text(`Shio ${currentClient.shio}`, rightCol, 113);
 
                 doc.setDrawColor(50, 50, 50);
-                doc.line(30, 195, pWidth - 30, 195);
+                doc.line(30, 122, pWidth - 30, 122);
 
-                // 7. Formula Racikan
+                // 7. TRILOGY FORMULAS
                 doc.setFont("helvetica", "bold");
                 doc.setFontSize(14);
                 doc.setTextColor(ivory[0], ivory[1], ivory[2]);
-                doc.text("ALCHEMICAL FORMULA", pWidth/2, 210, { align: "center" });
+                doc.text("THE TRILOGY ALCHEMICAL FORMULAS", pWidth/2, 135, { align: "center" });
 
-                doc.setFont("helvetica", "bold");
-                doc.setFontSize(13);
-                doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]);
-                doc.text(`${currentClient.ratio1}%`, leftCol, 225);
-                doc.setFont("helvetica", "normal");
-                doc.text(currentClient.sig1, leftCol + 15, 225);
+                // Y-axis tracker
+                let currY = 150;
 
-                doc.setFont("helvetica", "bold");
-                doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]);
-                doc.text(`${currentClient.ratio2}%`, leftCol, 235);
-                doc.setFont("helvetica", "normal");
-                doc.text(currentClient.sig2, leftCol + 15, 235);
+                // Fungsi render per signature
+                const renderSig = (sigObj, title, yPos) => {
+                    doc.setFont("helvetica", "bold");
+                    doc.setFontSize(9);
+                    doc.setTextColor(150, 150, 150);
+                    doc.text(title, pWidth/2, yPos, { align: "center" });
+                    
+                    doc.setFont("times", "italic");
+                    doc.setFontSize(16);
+                    doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]);
+                    doc.text(sigObj.name, pWidth/2, yPos + 7, { align: "center" });
+
+                    doc.setFont("helvetica", "bold");
+                    doc.setFontSize(10);
+                    doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]);
+                    doc.text(`${sigObj.r1}%`, leftCol + 15, yPos + 15);
+                    doc.setFont("helvetica", "normal");
+                    doc.text(sigObj.p1, leftCol + 30, yPos + 15);
+
+                    doc.setFont("helvetica", "bold");
+                    doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]);
+                    doc.text(`${sigObj.r2}%`, leftCol + 15, yPos + 21);
+                    doc.setFont("helvetica", "normal");
+                    doc.text(sigObj.p2, leftCol + 30, yPos + 21);
+                };
+
+                renderSig(currentClient.s1, "SIGNATURE I (DAY / ACTIVE)", currY);
+                currY += 38;
+                renderSig(currentClient.s2, "SIGNATURE II (NIGHT / INTIMATE)", currY);
+                currY += 38;
+                renderSig(currentClient.s3, "SIGNATURE III (SOCIAL / CAREER)", currY);
 
                 doc.setDrawColor(50, 50, 50);
-                doc.line(30, 245, pWidth - 30, 245);
+                doc.line(30, currY + 30, pWidth - 30, currY + 30);
 
-                // 8. 4 Alternatif Parfum
-                doc.setFont("helvetica", "bold");
-                doc.setFontSize(12);
-                doc.setTextColor(ivory[0], ivory[1], ivory[2]);
-                doc.text("RECOMMENDED ALTERNATIVES", pWidth/2, 255, { align: "center" });
-
+                // 8. Footer 
                 doc.setFont("helvetica", "normal");
-                doc.setFontSize(10);
-                doc.setTextColor(gold24k[0], gold24k[1], gold24k[2]);
-                doc.text(`1. ${currentClient.alts[0]}`, 40, 265);
-                doc.text(`2. ${currentClient.alts[1]}`, 40, 272);
-                doc.text(`3. ${currentClient.alts[2]}`, pWidth/2 + 10, 265);
-                doc.text(`4. ${currentClient.alts[3]}`, pWidth/2 + 10, 272);
-
-                // 9. Footer (Dinaikkan agar terlihat jelas dan berada di atas garis bingkai)
                 doc.setFontSize(8);
-                doc.setTextColor(150, 140, 120); // Warna emas redup
-                doc.text("This formula is mathematically sealed and exclusive to the named individual.", pWidth/2, 278, { align: "center" });
+                doc.setTextColor(150, 140, 120);
+                doc.text("This trilogy is mathematically sealed and exclusive to the named individual's DNA profile.", pWidth/2, 278, { align: "center" });
                 doc.text(`Generated by ScentGlide System | ${new Date().toLocaleDateString()}`, pWidth/2, 283, { align: "center" });
 
                 try {
-                    doc.save(`${currentClient.signatureName.replace(/ /g, '_')}_Certificate.pdf`);
+                    doc.save(`${currentClient.name.replace(/ /g, '_')}_Wardrobe.pdf`);
                     showToast("Sertifikat PDF berhasil diunduh.");
                 } catch (saveErr) {
                     console.warn("Save blocked by browser, trying fallback...", saveErr);
